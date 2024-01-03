@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const history = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -13,30 +16,28 @@ const Login = () => {
   };
 
   const handleLogin = async (credentials) => {
-    try {
-      const response = await fetch('http://localhost:3000/admin/sign_in', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
+    const response = await fetch('http://localhost:3000/admin/sign_in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          // Redirect to the specified URL
-          window.location.href = data.redirectTo;
-        } else {
-          // Handle authentication error, e.g., display an error message
-          console.error('Authentication error:', data.message);
-        }
-      } else {
-        // Handle other response errors
-        console.error('Error:', response.status);
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (!response.ok) {
+      const data = await response.json();
+      setMessage(data.message);
+      console.error('Login failed');
+      return;
+    }
+
+    const data = await response.json();
+
+    if (data && data.token) {
+      localStorage.setItem('token', data.token);
+      history('/');
+    } else {
+      console.error('Unexpected server response');
     }
   };
 
@@ -71,6 +72,7 @@ const Login = () => {
         </label>
         <br />
         <button type='submit'>Login</button>
+        {message && <p>{message}</p>}
       </form>
     </div>
   );

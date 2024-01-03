@@ -1,16 +1,22 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Log_in from './Log_in';
+import Post from './Post';
+
 
 export const routes = [
   {
     path: '/',
+    element: <App />,
+  },
+  {
+    path: '/log_in',
     element: <Log_in />,
   },
   {
-    path: '/logged',
-    element: <App />,
-  },
+    path:'/post',
+    element:<Post />
+  }
 ];
 
 const router = createBrowserRouter(routes);
