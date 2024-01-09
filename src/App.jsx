@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -40,7 +42,9 @@ const App = () => {
         <h2>Post List</h2>
         {posts.map((post) => (
           <div key={post._id}>
-            <h3>{post.title}</h3>
+            <Link to={`/${post._id}`}>
+              <h2>{post.title}</h2>
+            </Link>
             <p>{post.content}</p>
             <p>
               <strong>Date: </strong>
@@ -50,6 +54,7 @@ const App = () => {
               <strong>Published: </strong>
               {post.published ? 'Yes' : 'No'}
             </p>
+            <FontAwesomeIcon icon={faComment} />
             <p>{post.comments.length}</p>
             <hr />
           </div>

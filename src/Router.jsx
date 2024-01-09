@@ -14,7 +14,7 @@ export const routes = [
     element: <Log_in />,
   },
   {
-    path:'/post',
+    path:'/:postId',
     element:<Post />
   }
 ];
