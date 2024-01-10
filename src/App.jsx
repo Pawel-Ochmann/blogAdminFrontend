@@ -45,7 +45,7 @@ const App = () => {
             <Link to={`/${post._id}`}>
               <h2>{post.title}</h2>
             </Link>
-            <p>{post.content}</p>
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
             <p>
               <strong>Date: </strong>
               {post.date_formatted}
@@ -66,6 +66,7 @@ const App = () => {
   return (
     <div>
       <h1>Your Blog</h1>
+      <Link to='/posts/new'><button>Create new post</button></Link>
       <PostList posts={posts} />
     </div>
   );

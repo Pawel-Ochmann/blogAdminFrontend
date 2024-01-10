@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Log_in from './Log_in';
 import Post from './Post';
+import PostForm from './PostForm';
 
 
 export const routes = [
@@ -14,8 +15,16 @@ export const routes = [
     element: <Log_in />,
   },
   {
+    path:'/:postId/edit',
+    element:<PostForm />
+  },
+  {
     path:'/:postId',
     element:<Post />
+  },
+  {
+    path:'posts/new',
+    element:<PostForm />
   }
 ];
 
