@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='loginBox'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -60,7 +60,6 @@ const Login = () => {
             required
           />
         </label>
-        <br />
         <label>
           Password:
           <input
@@ -70,7 +69,6 @@ const Login = () => {
             required
           />
         </label>
-        <br />
         <button type='submit'>Login</button>
         {message && <p>{message}</p>}
       </form>

@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #ffffffde;
   background-color: #242424;
 
   font-synthesis: none;
@@ -54,15 +54,75 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+
+.container {
+  margin: 10%;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & .listTitle {
+    text-transform: uppercase;
+    text-align: center;
   }
-  a:hover {
-    color: #747bff;
+
+  & .postTitle {
+     color: #ffffffde;
+     text-decoration: underline;
+     text-align: center;
+     transition: .3s;
+     &:hover {
+      color: #646cff;
+     }
   }
-  button {
-    background-color: #f9f9f9;
+  & .postBox {
+    margin-bottom: 1rem;
+    border: 2px solid #535bf2;
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    font-size: 1.3rem;
   }
+  & .commentBox {
+    display: flex;
+    gap: .5rem;
+    align-items: start;
+    line-height: 1;
+  }
+  & .postContent {
+    border-bottom: 1px solid #ffffffde;
+  }
+}
+
+.loginBox {
+ width: 100vw;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ font-size: 1.3rem;
+ & form {
+  border: 2px solid #646cff;
+  padding: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  & label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+  }
+  & input {
+    transition: 0.3s;
+    &:hover {
+      border: 2px solid #646cff;
+    }
+    &:focus {
+      border: 2px solid #646cff;
+      outline:none;
+    }
+  }
+ }
 }

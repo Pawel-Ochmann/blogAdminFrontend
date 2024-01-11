@@ -7,7 +7,6 @@ const FormPost = () => {
     title: '',
     content: '',
     published: false,
-    id: null,
   });
 
   const { postId } = useParams();
@@ -36,8 +35,6 @@ const FormPost = () => {
       })
       .then((response) => {
         const { post } = response;
-        console.log(response);
-        console.log('Post fetched: ', post);
         setPostData((prevData) => ({
           ...prevData,
           title: post.title,
@@ -64,16 +61,17 @@ const FormPost = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const id = postId.slice(1) || false;
     if (postData.title === '') {
       return window.alert("Don't forget about title");
     } else if (postData.content === '') {
       return window.alert('There must be a content of a post');
     }
     try {
-      const address = postData.id
-        ? `http://localhost:3000/admin/posts/${postData.id}`
+      const address = id
+        ? `http://localhost:3000/admin/posts/${id}`
         : 'http://localhost:3000/admin/posts/new';
-      const method = postData.id ? 'PUT' : 'POST';
+      const method = id ? 'PUT' : 'POST';
       const token = localStorage.getItem('token');
       const response = await fetch(address, {
         method: method,

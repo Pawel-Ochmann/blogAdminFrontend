@@ -39,13 +39,13 @@ const App = () => {
   const PostList = ({ posts }) => {
     return (
       <div>
-        <h2>Post List</h2>
+        <h2 className='listTitle'>Post List</h2>
         {posts.map((post) => (
-          <div key={post._id}>
-            <Link to={`/${post._id}`}>
+          <div className='postBox' key={post._id}>
+            <Link className='postTitle' to={`/${post._id}`}>
               <h2>{post.title}</h2>
             </Link>
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className='postContent' dangerouslySetInnerHTML={{ __html: post.content }} />
             <p>
               <strong>Date: </strong>
               {post.date_formatted}
@@ -54,9 +54,10 @@ const App = () => {
               <strong>Published: </strong>
               {post.published ? 'Yes' : 'No'}
             </p>
-            <FontAwesomeIcon icon={faComment} />
-            <p>{post.comments.length}</p>
-            <hr />
+            <div class='commentBox'>
+              <FontAwesomeIcon icon={faComment} />
+              {post.comments.length}
+            </div>
           </div>
         ))}
       </div>
@@ -64,8 +65,8 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Your Blog</h1>
+    <div className='container'>
+      <h1>Travel Blog Admin Panel</h1>
       <Link to='/posts/new'><button>Create new post</button></Link>
       <PostList posts={posts} />
     </div>
