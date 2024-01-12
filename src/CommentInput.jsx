@@ -48,10 +48,9 @@ const CommentInput = ({ postId }) => {
 
   return (
     <div>
-      <form method='post'>
-        <h2>Add a New Comment</h2>
+      <form className='commentInput' method='post'>
+        <h3>Add a New Comment</h3>
         <label>
-          Comment Content:
           <textarea
             value={content}
             onChange={handleContentChange}
@@ -59,7 +58,6 @@ const CommentInput = ({ postId }) => {
             required
           ></textarea>
         </label>
-        <br />
         <button onClick={handleSubmit}>Add New Comment</button>
       </form>
     </div>

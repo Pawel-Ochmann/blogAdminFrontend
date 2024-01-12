@@ -13,12 +13,12 @@ const App = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch('http://localhost:3000/admin', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }});
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
 
-        
         if (response.status === 401) {
           // Handle your own logic to navigate to another route
           console.error('Unauthorized. Redirecting to login page...');
@@ -45,7 +45,15 @@ const App = () => {
             <Link className='postTitle' to={`/${post._id}`}>
               <h2>{post.title}</h2>
             </Link>
-            <div className='postContent' dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div
+              className='postContent'
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+            {post.image ? (
+              <img src={post.image} alt='Post Image' />
+            ) : (
+              <p className='imageDescription'>No image added to this post yet.</p>
+            )}
             <p>
               <strong>Date: </strong>
               {post.date_formatted}
@@ -54,7 +62,7 @@ const App = () => {
               <strong>Published: </strong>
               {post.published ? 'Yes' : 'No'}
             </p>
-            <div class='commentBox'>
+            <div className='commentBox'>
               <FontAwesomeIcon icon={faComment} />
               {post.comments.length}
             </div>
@@ -67,7 +75,9 @@ const App = () => {
   return (
     <div className='container'>
       <h1>Travel Blog Admin Panel</h1>
-      <Link to='/posts/new'><button>Create new post</button></Link>
+      <Link to='/posts/new'>
+        <button>Create new post</button>
+      </Link>
       <PostList posts={posts} />
     </div>
   );

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentInput from './CommentInput';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import GoMain from './GoMain';
 
 export default function Post() {
   let { postId } = useParams();
@@ -168,70 +169,87 @@ export default function Post() {
 
   return (
     <>
+      <GoMain />
       {post ? (
         <div className='post'>
-          <h2>{post.title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          <p>
-            <strong>Published: </strong>
-            {post.published ? 'Yes' : 'No'}
-          </p>
-          <p>{post.date_formatted}</p>
-          <button
-            onClick={(e) => {
-              handleEditPost(e, post._id);
-            }}
-          >
-            Edit Post
-          </button>
-          <button
-            onClick={(e) => {
-              handleDeletePost(e, post._id);
-            }}
-          >
-            Delete Post
-          </button>
+          <h2 className='postTitle'>{post.title}</h2>
+          <div className='postBox'>
+            <div
+              className='postContent'
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+            {post.image ? (
+              <img src={post.image} alt='Post Image' />
+            ) : (
+              <p className='imageDescription'>
+                No image added to this post yet.
+              </p>
+            )}
+            <p>
+              <strong>Published: </strong>
+              {post.published ? 'Yes' : 'No'}
+            </p>
+            <p>{post.date_formatted}</p>
+            <button
+              onClick={(e) => {
+                handleEditPost(e, post._id);
+              }}
+            >
+              Edit Post
+            </button>
+            <button
+              onClick={(e) => {
+                handleDeletePost(e, post._id);
+              }}
+            >
+              Delete Post
+            </button>
+          </div>
         </div>
       ) : (
         <p>Post is loading... </p>
       )}
       <CommentInput postId={postId} />
-      {comments.length === 0 ? (
-        <p>No comments yet</p>
-      ) : (
-        <ul>
-          {comments.map((comment) => (
-            <li key={comment._id}>
-              <p>Author: {comment.author}</p>
-              <textarea
-                name=''
-                id=''
-                cols='30'
-                rows='5'
-                value={comment.content}
-                onChange={(e) => {
-                  handleContentChange(e, comment._id, comment.content);
-                }}
-              ></textarea>
-              <p>Date: {comment.date_formatted}</p>
-              <button
-                onClick={(e) => {
-                  handleEdit(e, comment._id);
-                }}
-              >
-                Edit Comment
-              </button>
-              <button
-                onClick={(e) => {
-                  handleDelete(e, comment._id);
-                }}
-              >
-                Delete Comment
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className='commentsList'>
+        {comments.length === 0 ? (
+          <p className='none'>No comments yet</p>
+        ) : (
+          <ul>
+            <h3 className='commentListTitle'>Comment list</h3>
+            {comments.map((comment) => (
+              <li key={comment._id}>
+                <h3>Author: {comment.author}</h3>
+                <textarea
+                  name=''
+                  id=''
+                  cols='30'
+                  rows='5'
+                  value={comment.content}
+                  onChange={(e) => {
+                    handleContentChange(e, comment._id, comment.content);
+                  }}
+                ></textarea>
+                <p>Date: {comment.date_formatted}</p>
+                <button
+                  onClick={(e) => {
+                    handleEdit(e, comment._id);
+                  }}
+                >
+                  Edit Comment
+                </button>
+                <button
+                  onClick={(e) => {
+                    handleDelete(e, comment._id);
+                  }}
+                >
+                  Delete Comment
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
 }
+

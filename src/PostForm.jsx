@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useNavigate, useParams } from 'react-router-dom';
+import GoMain from './GoMain';
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
     title: '',
+    image:'',
     content: '',
     published: false,
   });
@@ -38,6 +40,7 @@ const FormPost = () => {
         setPostData((prevData) => ({
           ...prevData,
           title: post.title,
+          image:post.image ?? '',
           content: post.content,
           published: post.published,
         }));
@@ -61,7 +64,8 @@ const FormPost = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const id = postId.slice(1) || false;
+    let id;
+    if (postId) {id = postId.slice(1)} else {id = false}
     if (postData.title === '') {
       return window.alert("Don't forget about title");
     } else if (postData.content === '') {
@@ -103,9 +107,10 @@ const FormPost = () => {
   };
 
   return (
-    <div>
+    <div className='postForm'>
+      <GoMain />
       <h2>{postId ? 'Edit' : 'Create'} a New Post</h2>
-      <form onSubmit={handleSubmit}>
+      <form className='form' onSubmit={handleSubmit}>
         <label>
           Title:
           <input
@@ -116,9 +121,17 @@ const FormPost = () => {
             required
           />
         </label>
-        <br />
         <label>
-          Content:
+          Image address:
+          <input
+            type='text'
+            name='image'
+            value={postData.image}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label className='textareaBox'>
+          <div className='contentTitle'>Content:</div>
           <Editor
             apiKey='ochkhbyoq38aqe48yg2ui0rv3s3zgyvpxqbwrbarx7jnfabg'
             value={postData.content}
@@ -128,7 +141,6 @@ const FormPost = () => {
             onEditorChange={handleEditorChange}
           />
         </label>
-        <br />
         <label>
           Published:
           <input
@@ -143,7 +155,6 @@ const FormPost = () => {
             }
           />
         </label>
-        <br />
         <button type='submit' onClick={handleSubmit}>
           {postId ? 'Edit' : 'Create '} Post
         </button>
