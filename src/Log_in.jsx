@@ -16,13 +16,16 @@ const Login = () => {
   };
 
   const handleLogin = async (credentials) => {
-    const response = await fetch('http://localhost:3000/admin/sign_in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    });
+    const response = await fetch(
+      'https://blogbackend.adaptable.app/admin/sign_in',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      }
+    );
 
     if (!response.ok) {
       const data = await response.json();

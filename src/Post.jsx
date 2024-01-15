@@ -14,7 +14,7 @@ export default function Post() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:3000/admin/posts/${postId}`, {
+    fetch(`https://blogbackend.adaptable.app/admin/posts/${postId}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -43,7 +43,7 @@ export default function Post() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:3000/admin/comments/${comment_id}`,
+        `https://blogbackend.adaptable.app/admin/comments/${comment_id}`,
         {
           method: 'DELETE',
           mode: 'cors',
@@ -91,7 +91,7 @@ export default function Post() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:3000/admin/comments/${comment_id}`,
+        `https://blogbackend.adaptable.app/admin/comments/${comment_id}`,
         {
           method: 'PUT',
           mode: 'cors',
@@ -134,7 +134,7 @@ export default function Post() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:3000/admin/posts/${postId}`,
+        `https://blogbackend.adaptable.app/admin/posts/${postId}`,
         {
           method: 'DELETE',
           mode: 'cors',

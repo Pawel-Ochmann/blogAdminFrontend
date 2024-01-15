@@ -13,10 +13,10 @@ const CommentInput = ({ postId }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:3000/admin/comments/${postId}`,
+        `https://blogbackend.adaptable.app/admin/comments/${postId}`,
         {
           method: 'POST',
-          mode:'cors',
+          mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,

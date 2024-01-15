@@ -19,7 +19,7 @@ const FormPost = () => {
     const id = postId.slice(1);
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:3000/admin/posts/${id}`, {
+    fetch(`https://blogbackend.adaptable.app/admin/posts/${id}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -40,7 +40,7 @@ const FormPost = () => {
         setPostData((prevData) => ({
           ...prevData,
           title: post.title,
-          image:post.image ?? '',
+          image: post.image ?? '',
           content: post.content,
           published: post.published,
         }));
@@ -73,8 +73,8 @@ const FormPost = () => {
     }
     try {
       const address = id
-        ? `http://localhost:3000/admin/posts/${id}`
-        : 'http://localhost:3000/admin/posts/new';
+        ? `https://blogbackend.adaptable.app/admin/posts/${id}`
+        : 'https://blogbackend.adaptable.app/admin/posts/new';
       const method = id ? 'PUT' : 'POST';
       const token = localStorage.getItem('token');
       const response = await fetch(address, {
