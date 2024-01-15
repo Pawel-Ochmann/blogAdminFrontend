@@ -19,6 +19,7 @@ const App = () => {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',
             },
+            mode: 'cors',
           }
         );
 
@@ -55,7 +56,9 @@ const App = () => {
             {post.image ? (
               <img src={post.image} alt='Post Image' />
             ) : (
-              <p className='imageDescription'>No image added to this post yet.</p>
+              <p className='imageDescription'>
+                No image added to this post yet.
+              </p>
             )}
             <p>
               <strong>Date: </strong>

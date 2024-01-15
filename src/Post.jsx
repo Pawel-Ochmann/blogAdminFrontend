@@ -40,6 +40,7 @@ export default function Post() {
   }, [postId]);
 
   const deleteComment = async (comment_id) => {
+    console.log('deleting')
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
@@ -71,9 +72,9 @@ export default function Post() {
     }
   };
 
-  const handleDelete = (e, comment_id) => {
+  const handleDelete = async (e, comment_id) => {
     e.preventDefault();
-    deleteComment(comment_id);
+    await deleteComment(comment_id);
     window.location.reload();
   };
 
