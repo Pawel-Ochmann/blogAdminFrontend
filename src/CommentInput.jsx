@@ -9,7 +9,7 @@ const CommentInput = ({ postId }) => {
   };
 
   const submitComment = async () => {
-    // Assuming you have an API endpoint to handle the comment submission
+   console.log('post is being created');
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
@@ -36,11 +36,11 @@ const CommentInput = ({ postId }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents the default form submission and page reload
 
     if (content.trim() !== '') {
-      submitComment();
+      await submitComment();
       setContent('');
       window.location.reload();
     }
