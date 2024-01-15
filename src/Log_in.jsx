@@ -16,31 +16,36 @@ const Login = () => {
   };
 
   const handleLogin = async (credentials) => {
-    const response = await fetch(
-      'https://blogbackend.adaptable.app/admin/sign_in',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
+    try {
+      const response = await fetch(
+        'https://blogbackend.adaptable.app/admin/sign_in',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'cors',
+          body: JSON.stringify(credentials),
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        setMessage(data.message);
+        console.error('Login failed');
+        return;
       }
-    );
 
-    if (!response.ok) {
       const data = await response.json();
-      setMessage(data.message);
-      console.error('Login failed');
-      return;
-    }
 
-    const data = await response.json();
-
-    if (data && data.token) {
-      localStorage.setItem('token', data.token);
-      history('/');
-    } else {
-      console.error('Unexpected server response');
+      if (data && data.token) {
+        localStorage.setItem('token', data.token);
+        history('/');
+      } else {
+        console.error('Unexpected server response');
+      }
+    } catch (error) {
+      console.error('Some server error: ', error);
     }
   };
 
